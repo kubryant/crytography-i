@@ -16,23 +16,20 @@ func isLetter(char byte) bool {
 	return false
 }
 
-func mostCommonChar(chars []byte) byte {
-	var maxByte byte
-	var maxSeen int
-	charsSeen := make(map[byte]int)
-
-	for _, v := range chars {
-		charsSeen[v]++
+func getChar(chars []byte) byte {
+	if len(chars) == 0 {
+		return byte(32)
 	}
 
-	for k, v := range charsSeen {
-		if v > maxSeen {
-			maxByte = k
-			maxSeen = v
+	char := chars[0]
+
+	for _, c := range chars {
+		if c != char {
+			return byte(95)
 		}
 	}
 
-	return maxByte
+	return char
 }
 
 func xor(x, y []byte) []byte {
@@ -64,7 +61,7 @@ func getMessage(plaintexts [][]byte) string {
 			}
 		}
 
-		message += string(mostCommonChar(chars))
+		message += string(getChar(chars))
 	}
 
 	return message
